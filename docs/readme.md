@@ -36,7 +36,7 @@ catch (Exception e)
 	System.Diagnostics.Trace.TraceError(e.Message);
 }
 		
-Query $query = new Query(connection);
+Query query = new Query(connection);
 ```
 
 **Next page:** [Select](selects.md)
