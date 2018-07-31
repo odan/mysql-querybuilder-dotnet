@@ -29,11 +29,11 @@ MySqlConnection connection = new MySqlConnection(dsn);
 
 try
 {
-	connection.Open();
+    connection.Open();
 }
 catch (Exception e)
 {
-	System.Diagnostics.Trace.TraceError(e.Message);
+    System.Diagnostics.Trace.TraceError(e.Message);
 }
 		
 Query query = new Query(connection);
