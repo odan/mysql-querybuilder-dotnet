@@ -60,7 +60,7 @@ before_build:
   - dotnet restore
 
 before_test:
-  - "C:\Program Files\MySQL\MySQL Server 5.7\bin\mysql" -u root -e "create database mysql_query_test CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+  - C:\Program Files\MySQL\MySQL Server 5.7\bin\mysql -u root -e "create database mysql_query_test CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 
 # to run your custom scripts instead of automatic tests
 test_script:
