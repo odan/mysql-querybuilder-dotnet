@@ -14,7 +14,7 @@ branches:
   # blacklist
   except:
     - gh-pages
-	
+
 # Maximum number of concurrent jobs for the project
 max_jobs: 1
 
@@ -35,7 +35,7 @@ matrix:
 	  
 # enable service required for build/tests
 services:
-  - mysql               # start MySQL 5.6 service
+  - mysql
   
 # scripts that run after cloning repository
 install:
