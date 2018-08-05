@@ -1,4 +1,6 @@
 language: csharp
+sudo: required 
+dist: xenial
 solution: MySqlQueryBuilder.sln
 mono: none
 dotnet: 2.1
