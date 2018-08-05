@@ -4,6 +4,8 @@ dist: xenial
 solution: MySqlQueryBuilder.sln
 mono: none
 dotnet: 2.1
+services:
+  - mysql
 script:
  - dotnet restore
 install:
