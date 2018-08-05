@@ -41,11 +41,6 @@ services:
 install:
   # by default, all script lines are interpreted as batch
   - echo This is batch
-  # to run script as a PowerShell command prepend it with ps:
-  - ps: Write-Host 'This is PowerShell'
-  # batch commands start from cmd:
-  - cmd: echo This is batch again
-  - cmd: set MY_VAR=12345
 
 #---------------------------------#
 #       build configuration       #
@@ -57,11 +52,13 @@ platform: Any CPU
 # Build settings, not to be confused with "before_build" and "after_build".
 # "project" is relative to the original build directory and not influenced by directory changes in "before_build".
 build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: MySqlQueryBuilder.sln      # path to Visual Studio solution or project
+  parallel: true
+  project: MySqlQueryBuilder.sln
 
 # scripts to run before build
 before_build:
+  - echo Run before_build dotnet restore
+  - dotnet restore
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
