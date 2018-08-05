@@ -15,7 +15,8 @@ install:
   - sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
   - sudo apt install nuget
   - nuget restore MySqlQueryBuilder.sln
-  - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
+  - dotnet add package xunit.runner.visualstudio --version 2.3.1
+  - nuget install xunit.runners -Version 2.4.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release MySqlQueryBuilder.sln
-  - mono ./testrunner/xunit.runners.2.3.1/tools/xunit.console.clr4.exe ./MySqlQueryBuilderTest/bin/Debug/netcoreapp2.1/MySqlQueryBuilderTest.dll
+  - mono ./testrunner/xunit.runners.2.4.0/tools/xunit.console.clr4.exe ./MySqlQueryBuilderTest/bin/Debug/netcoreapp2.1/MySqlQueryBuilderTest.dll
