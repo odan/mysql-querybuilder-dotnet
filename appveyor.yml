@@ -57,7 +57,7 @@ build:
 
 # scripts to run before build
 before_build:
-  - echo Run before_build dotnet restore
+  - mysql -e 'create database `mysql_query_test` CHARACTER SET utf8 COLLATE utf8_unicode_ci;'
   - dotnet restore
 
 # to run your custom scripts instead of automatic MSBuild
@@ -68,3 +68,7 @@ after_build:
 
 # scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
 before_package:
+
+# to run your custom scripts instead of automatic tests
+test_script:
+  - dotnet test MySqlQueryBuilderTest/
