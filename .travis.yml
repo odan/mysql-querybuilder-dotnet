@@ -15,10 +15,14 @@ install:
   - sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
   #- sudo apt install nuget
   #- nuget restore MySqlQueryBuilder.sln
-  - dotnet restore
+  #- dotnet restore
   #- dotnet add MySqlQueryBuilderTest package xunit.runner.console --version 2.3.1
-  - dotnet test MySqlQueryBuilderTest/
+  #- dotnet test MySqlQueryBuilderTest/
   #- nuget install xunit.runners -Version 2.4.0 -OutputDirectory testrunner
+before_script:
+  - dotnet restore
+  - mysql -e 'create database mysql_query_test;
 script:
+  - dotnet test MySqlQueryBuilderTest/
  # - xbuild /p:Configuration=Release MySqlQueryBuilder.sln
  # - mono ./testrunner/xunit.runners.2.4.0/tools/xunit.console.clr4.exe ./MySqlQueryBuilderTest/bin/Debug/netcoreapp2.1/MySqlQueryBuilderTest.dll

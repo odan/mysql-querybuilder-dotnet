@@ -7,7 +7,7 @@ namespace MySqlQueryBuilderTest
 {
     public class BaseTest
     {
-        private string Dsn = "Database=prisma;Data Source=localhost;User Id=root;Password=;SslMode=none";
+        private string Dsn = "Database=mysql_query_test;Data Source=localhost;User Id=root;Password=;SslMode=none";
 
         protected MySqlConnection Connection;
 
