@@ -24,7 +24,7 @@ install:
   #- nuget install xunit.runners -Version 2.4.0 -OutputDirectory testrunner
 before_script:
   - dotnet restore
-  - mysql -e 'create database mysql_query_test'
+  - mysql -e 'create database `mysql_query_test` CHARACTER SET utf8 COLLATE utf8_unicode_ci;'
 script:
   - dotnet test MySqlQueryBuilderTest/
  # - xbuild /p:Configuration=Release MySqlQueryBuilder.sln
