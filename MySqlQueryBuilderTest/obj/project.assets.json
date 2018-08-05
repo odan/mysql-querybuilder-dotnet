@@ -6091,11 +6091,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\MySqlQueryBuilderTest.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\MySqlQueryBuilderTest.csproj",
       "projectName": "MySqlQueryBuilderTest",
-      "projectPath": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\MySqlQueryBuilderTest.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\MySqlQueryBuilderTest.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilderTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6114,8 +6114,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj": {
-              "projectPath": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj"
+            "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj"
             }
           }
         }

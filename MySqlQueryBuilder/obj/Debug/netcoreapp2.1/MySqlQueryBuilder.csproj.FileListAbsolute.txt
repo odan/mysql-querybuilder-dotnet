@@ -1,9 +1,0 @@
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\bin\Debug\netcoreapp2.1\MySqlQueryBuilder.deps.json
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\bin\Debug\netcoreapp2.1\MySqlQueryBuilder.dll
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\bin\Debug\netcoreapp2.1\MySqlQueryBuilder.pdb
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.csprojAssemblyReference.cache
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.csproj.CoreCompileInputs.cache
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.AssemblyInfoInputs.cache
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.AssemblyInfo.cs
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.dll
-C:\xampp\htdocs\MySqlQueryBuilder\MySqlQueryBuilder\obj\Debug\netcoreapp2.1\MySqlQueryBuilder.pdb

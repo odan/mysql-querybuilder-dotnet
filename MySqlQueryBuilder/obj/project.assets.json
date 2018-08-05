@@ -1045,11 +1045,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj",
       "projectName": "MySqlQueryBuilder",
-      "projectPath": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\MySqlQueryBuilder.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Source\\Repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\mysql-querybuilder-dotnet\\MySqlQueryBuilder\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
