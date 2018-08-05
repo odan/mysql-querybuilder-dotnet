@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("MySqlQueryBuilderTest")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("MySqlQueryBuilder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("MySqlQueryBuilderTest")]
-[assembly: System.Reflection.AssemblyTitleAttribute("MySqlQueryBuilderTest")]
+[assembly: System.Reflection.AssemblyProductAttribute("MySqlQueryBuilder")]
+[assembly: System.Reflection.AssemblyTitleAttribute("MySqlQueryBuilder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.
