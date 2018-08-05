@@ -11,13 +11,6 @@ branches:
     - master
     - production
 
-  # blacklist
-  except:
-    - gh-pages
-
-# Maximum number of concurrent jobs for the project
-max_jobs: 1
-
 # Build worker image (VM template)
 image: Visual Studio 2017
 
@@ -25,22 +18,9 @@ image: Visual Studio 2017
 init:
   - git config --global core.autocrlf input
   
-matrix:
-  fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
-  allow_failures:
-    - platform: x86
-      configuration: Debug
-    - platform: x64
-      configuration: Release
-
 # enable service required for build/tests
 services:
   - mysql
-
-# scripts that run after cloning repository
-install:
-  # by default, all script lines are interpreted as batch
-  - echo This is batch
 
 #---------------------------------#
 #       build configuration       #
@@ -49,23 +29,25 @@ install:
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
 platform: Any CPU
 
-# Build settings, not to be confused with "before_build" and "after_build".
-# "project" is relative to the original build directory and not influenced by directory changes in "before_build".
 build:
   parallel: true
   project: MySqlQueryBuilder.sln
 
-# scripts to run before build
 before_build:
   - dotnet restore
 
 before_test:
   - SET PATH=%PATH%;C:\Program Files\MySQL\MySQL Server 5.7\bin
+  
+  # Reset Database password (MySQL 5.7.5)
   - mysql -u root --password=Password12! -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD(''); FLUSH PRIVILEGES;"
-  # ALTER USER 'root'@'localhost' IDENTIFIED BY '<password>';
- 
+  
+  # Reset Database password (MySQL 5.7.6+)
+  #- mysql -u root --password=Password12! -e "ALTER USER 'root'@'localhost' IDENTIFIED BY ''; FLUSH PRIVILEGES;"
+  
+  # Create test database
   - mysql -u root -e "create database mysql_query_test CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 
-# to run your custom scripts instead of automatic tests
+# Run custom scripts instead of automatic tests
 test_script:
   - dotnet test MySqlQueryBuilderTest/
