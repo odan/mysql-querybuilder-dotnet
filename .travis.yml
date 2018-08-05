@@ -5,6 +5,7 @@ dotnet: 2.1
 script:
  - dotnet restore
 install:
+  - apt install nuget
   - nuget restore MySqlQueryBuilder.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
 script:
