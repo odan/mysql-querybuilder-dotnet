@@ -3,20 +3,22 @@
 Create a select query object with the connection object.
 
 ```csharp
+string dsn = "Database=test;Data Source=localhost;User Id=root;Password=;SslMode=none"
+MySqlConnection connection = new MySqlConnection(dsn);
+connection.Open();
 
-```
-Creating a SelectQuery object manually:
-
-```csharp
-
-```
+Query query = new Query(Connection);
 
 ## Inspecting The Query
 
 Getting the generated SQL string:
 
 ```csharp
+query.From("users AS u");
+query.Select("*");
 
+string sql = query.GetSql();
+Console.WriteLine(sql);
 ```
 Output:
 
@@ -34,27 +36,78 @@ the given table, allowing you to chain more constraints onto
 the query and then finally get the results using the get method:
 
 ```csharp
+Query query = this.NewQuery();
 
+query.From("users");
+query.Select(new List<object>
+{
+    "id",
+    "username",
+    "email"
+});
+
+var rows = query.Execute().FetchAll();
+
+foreach (var row in rows)
+{
+    var id = row.Get<int>("id");
+    var username  = row.Get<string>("username");
+    var email = row.Get<string>("email");
+}
 ```
 
-The `fetch()` method returns an row containing the results 
-where each result is an instance of the Array or PHP StdClass object. 
-You may access each column's value by accessing the column as a property of the object:
+#### Retrieving All Rows From A Table as POCO
+
+Example POCO class:
 
 ```csharp
-
+public class User
+{
+    public long Id { get; set; }
+    public string Username { get; set; }
+    public string Email { get; set; }
+}
 ```
+
+Now query the list of User POCO's.
+
+```csharp
+Query query = this.NewQuery();
+
+query.From("users");
+query.Select(new List<object>
+{
+    "id",
+    "username",
+    "email"
+});
+
+var users = query.Execute().FetchAll<User>();
+    
+foreach (var user in users)
+{
+    var id = user.Id;
+    var username = user.Username;
+    var email = user.Email;    
+}
+```
+
 
 #### Retrieving A Single Row From A Table
 
-```csharp
+The `Fetch()` method returns an row containing the results 
+where each result is an instance of the Array or PHP StdClass object. 
+You may access each column's value by accessing the column as a property of the object:
 
+
+```csharp
+var row = query.Execute().Fetch();
 ```
 
-#### Retrieving A Single Column From A Table
+#### Retrieving A Single Column From A Table as POCO
 
 ```csharp
-
+User user = query.Execute().Fetch<User>();
 ```
 
 #### Distinct
