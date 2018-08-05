@@ -1,5 +1,5 @@
 language: csharp
-sudo: required 
+#sudo: required 
 dist: xenial
 solution: MySqlQueryBuilder.sln
 mono: none
