@@ -23,6 +23,8 @@ namespace MySqlQueryBuilderTest
             try
             {
                 Connection.Open();
+
+                this.CreateUserTable();
             }
             catch (Exception e)
             {
@@ -50,25 +52,13 @@ namespace MySqlQueryBuilderTest
             return cmd.ExecuteReader();
         }
 
-        protected void CreateMetaTable()
-        {
-            this.ExecuteSql("DROP TABLE IF EXISTS `meta`;");
-            string sql = "CREATE TABLE `meta` ( " +
-                         "`id` int(11) NOT NULL AUTO_INCREMENT, " +
-                         "`meta_key` varchar(255) NOT NULL, " +
-                         "`meta_value` varchar(8000) DEFAULT NULL, " +
-                         "PRIMARY KEY(`id`)," +
-                         "KEY `meta_key` (`meta_key`) " +
-                         ") ENGINE = MEMORY DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;";
-            this.ExecuteSql(sql);
-        }
-
         protected void CreateUserTable()
         {
-            this.ExecuteSql("DROP TABLE IF EXISTS `user`;");
-            string sql = "CREATE TABLE `user` ( " +
+            this.ExecuteSql("DROP TABLE IF EXISTS `users`;");
+            string sql = "CREATE TABLE `users` ( " +
                          "`id` int(11) NOT NULL AUTO_INCREMENT, " +
-                         "`name` varchar(255) NOT NULL, " +
+                         "`first_name` varchar(255) NOT NULL, " +
+                         "`last_name` varchar(255) NOT NULL, " +
                          "`username` varchar(255) NOT NULL, " +
                          "`email` varchar(255) NOT NULL, " +
                          "PRIMARY KEY(`id`)" +
@@ -79,13 +69,13 @@ namespace MySqlQueryBuilderTest
         protected void FillUserTable()
         {
             string sql =
-                "INSERT INTO `user` (`name`, `username`, `email`) VALUES('myname', 'myusername', 'user@example.com');";
+                "INSERT INTO `users` (`first_name`, `username`, `email`) VALUES('myname', 'myusername', 'user@example.com');";
             this.ExecuteSql(sql);
             sql =
-                "INSERT INTO `user` (`name`, `username`, `email`) VALUES('myname2', 'myusername2', 'user2@example.com');";
+                "INSERT INTO `users` (`first_name`, `username`, `email`) VALUES('myname2', 'myusername2', 'user2@example.com');";
             this.ExecuteSql(sql);
             sql =
-                "INSERT INTO `user` (`name`, `username`, `email`) VALUES('myname3', 'myusername3', 'user3@example.com');";
+                "INSERT INTO `users` (`first_name`, `username`, `email`) VALUES('myname3', 'myusername3', 'user3@example.com');";
             this.ExecuteSql(sql);
         }
     }
