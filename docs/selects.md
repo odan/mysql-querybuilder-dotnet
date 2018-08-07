@@ -7,7 +7,8 @@ string dsn = "Database=test;Data Source=localhost;User Id=root;Password=;SslMode
 MySqlConnection connection = new MySqlConnection(dsn);
 connection.Open();
 
-Query query = new Query(Connection);
+Query query = new Query(connection);
+```
 
 ## Inspecting The Query
 
@@ -20,6 +21,7 @@ query.Select("*");
 string sql = query.GetSql();
 Console.WriteLine(sql);
 ```
+
 Output:
 
 ```sql
