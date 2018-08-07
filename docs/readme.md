@@ -20,7 +20,6 @@ There is no need to clean strings being passed as bindings.
 Create a new database Connection:
 
 ```csharp
-
 using MySql.Data.MySqlClient;
 using MySqlQueryBuilder;
 
@@ -35,8 +34,10 @@ catch (Exception e)
 {
     System.Diagnostics.Trace.TraceError(e.Message);
 }
-		
+
+// Create the query object
 Query query = new Query(connection);
+
 ```
 
 **Next page:** [Select](selects.md)
