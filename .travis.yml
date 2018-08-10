@@ -5,6 +5,10 @@ dist: xenial
 solution: MySqlQueryBuilder.sln
 mono: none
 dotnet: 2.1
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+    - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 services:
   - mysql
 script:
@@ -16,16 +20,9 @@ install:
   - sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
   - sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
   - sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
-  #- sudo apt install nuget
-  #- nuget restore MySqlQueryBuilder.sln
-  #- dotnet restore
-  #- dotnet add MySqlQueryBuilderTest package xunit.runner.console --version 2.3.1
-  #- dotnet test MySqlQueryBuilderTest/
-  #- nuget install xunit.runners -Version 2.4.0 -OutputDirectory testrunner
 before_script:
   - dotnet restore
   - mysql -e 'create database `mysql_query_test` CHARACTER SET utf8 COLLATE utf8_unicode_ci;'
 script:
   - dotnet test MySqlQueryBuilderTest/
- # - xbuild /p:Configuration=Release MySqlQueryBuilder.sln
- # - mono ./testrunner/xunit.runners.2.4.0/tools/xunit.console.clr4.exe ./MySqlQueryBuilderTest/bin/Debug/netcoreapp2.1/MySqlQueryBuilderTest.dll
+ 
