@@ -196,7 +196,6 @@ namespace MySqlQueryBuilderTest
             string sql = query.GetSql();
 
             Assert.Equal("SELECT * FROM `t1` WHERE `column1` = (SELECT `column1` FROM `t2`);", sql);
-
         }
     }
 }

@@ -25,9 +25,9 @@ namespace MySqlQueryBuilder
             string value = field.ToString();
 
             if (theType.FullName != "MySqlQueryBuilder.RawExpression" &&
-               theType.FullName != "MySqlQueryBuilder.Field" &&
-               theType.FullName != "MySqlQueryBuilder.Query" &&
-               theType.FullName != "MySqlQueryBuilder.SubQuery")
+                theType.FullName != "MySqlQueryBuilder.Field" &&
+                theType.FullName != "MySqlQueryBuilder.Query" &&
+                theType.FullName != "MySqlQueryBuilder.SubQuery")
             {
                 value = _quoter.QuoteName(value.ToString());
             }

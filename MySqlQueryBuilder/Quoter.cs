@@ -7,7 +7,6 @@ namespace MySqlQueryBuilder
 {
     public class Quoter
     {
-
         public string Quote(string value)
         {
             if (value == null)
@@ -20,24 +19,26 @@ namespace MySqlQueryBuilder
             if (result == null)
             {
                 return "NULL";
-            };
+            }
 
-            result = Regex.Replace(result, @"[\x00\b\n\r\t\cZ]", delegate (Match match)
+            ;
+
+            result = Regex.Replace(result, @"[\x00\b\n\r\t\cZ]", delegate(Match match)
             {
                 string v = match.Value;
                 switch (v)
                 {
-                    case "\x00":            // ASCII NUL (0x00) character
+                    case "\x00": // ASCII NUL (0x00) character
                         return "\\0";
-                    case "\b":              // BACKSPACE character
+                    case "\b": // BACKSPACE character
                         return "\\b";
-                    case "\n":              // NEWLINE (linefeed) character
+                    case "\n": // NEWLINE (linefeed) character
                         return "\\n";
-                    case "\r":              // CARRIAGE RETURN character
+                    case "\r": // CARRIAGE RETURN character
                         return "\\r";
-                    case "\t":              // TAB
+                    case "\t": // TAB
                         return "\\t";
-                    case "\u001A":          // Ctrl-Z
+                    case "\u001A": // Ctrl-Z
                         return "\\Z";
                     default:
                         return "\\" + v;
@@ -66,7 +67,7 @@ namespace MySqlQueryBuilder
         {
             name = name.Trim();
 
-            string[] separators = { " AS ", " as ", " " };
+            string[] separators = {" AS ", " as ", " "};
 
             foreach (string seperator in separators)
             {

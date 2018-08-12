@@ -48,6 +48,7 @@ namespace MySqlQueryBuilder
                 {
                     rows.Add(this.DataReaderToDataRow(reader));
                 }
+
                 reader.Close();
             }
 
@@ -65,6 +66,7 @@ namespace MySqlQueryBuilder
                     // Convert reader to object and add to list
                     rows.Add(this.DataReaderToObject<T>(reader));
                 }
+
                 reader.Close();
             }
 
@@ -76,7 +78,7 @@ namespace MySqlQueryBuilder
             Type type = typeof(T);
 
             // New row object
-            T row = (T)Activator.CreateInstance(typeof(T));
+            T row = (T) Activator.CreateInstance(typeof(T));
 
             for (int i = 0; i < dataReader.FieldCount; i++)
             {

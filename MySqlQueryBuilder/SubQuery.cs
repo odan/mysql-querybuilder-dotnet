@@ -42,6 +42,5 @@ namespace MySqlQueryBuilder
 
             return sql;
         }
-
     }
 }

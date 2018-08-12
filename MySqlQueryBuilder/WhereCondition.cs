@@ -46,6 +46,7 @@ namespace MySqlQueryBuilder
                 {
                     comperator = "IS NOT";
                 }
+
                 value = "NULL";
             }
             else if (value is RawExpression)
@@ -63,6 +64,5 @@ namespace MySqlQueryBuilder
 
             return String.Format("{0} {1} {2}", field, comperator, value);
         }
-
     }
 }

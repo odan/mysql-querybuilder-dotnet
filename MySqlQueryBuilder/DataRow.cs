@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Google.Protobuf.WellKnownTypes;
 
 namespace MySqlQueryBuilder
 {
@@ -30,7 +29,7 @@ namespace MySqlQueryBuilder
                 value = this[field] == null ? defaultValue : this[field];
             }
 
-            return (T)Convert.ChangeType(value, typeof(T));
+            return (T) Convert.ChangeType(value, typeof(T));
         }
     }
 }
