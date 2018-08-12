@@ -197,5 +197,52 @@ namespace MySqlQueryBuilderTest
 
             Assert.Equal("SELECT * FROM `t1` WHERE `column1` = (SELECT `column1` FROM `t2`);", sql);
         }
+
+        [Fact]
+        public void TestSelectAndWhere()
+        {
+            string[] comparisons = {"=", ">=", "<=", "<>", "!="};
+
+            foreach (string comparison in comparisons)
+            {
+                Query query = this.NewQuery();
+
+                query.Select("*").From("t1");
+                query.Where("f1", comparison, 1);
+                query.Where("f6", comparison, 3.14);
+                query.Where("f2", comparison, "max");
+                query.Where("f3", comparison, true);
+                query.Where("f4", comparison, false);
+                query.Where("f5", comparison, null);
+
+                string sql = query.GetSql();
+
+                string exected = "SELECT * FROM `t1` WHERE `f1` {0} '1' AND `f6` {1} '3.14' AND `f2` {2} 'max' " +
+                                 "AND `f3` {3} '1' AND `f4` {4} '0' AND `f5` IS NULL;";
+                exected = String.Format(exected, comparison, comparison, comparison, comparison, comparison);
+                Assert.Equal(exected, sql);
+            }
+        }
+
+        [Fact]
+        public void TestSelectAndWhereIn()
+        {
+            object[] data = {"1", "2", 3.14, 4, true, false, null};
+
+            string[] comparisons = {"IN", "NOT IN"};
+
+            foreach (string comparison in comparisons)
+            {
+                Query query = this.NewQuery();
+                query.Select("*").From("t1");
+                query.Where("f1", comparison, data);
+
+                string sql = query.GetSql();
+
+                string exected = "SELECT * FROM `t1` WHERE `f1` {0} ('1', '2', '3.14', '4', '1', '0', NULL);";
+                exected = String.Format(exected, comparison, comparison, comparison, comparison, comparison);
+                Assert.Equal(exected, sql);
+            }
+        }
     }
 }

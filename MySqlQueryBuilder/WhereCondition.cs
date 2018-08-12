@@ -35,31 +35,34 @@ namespace MySqlQueryBuilder
         {
             string field = this._field;
             string comperator = this._comperator;
-            object value = this._value;
+            string value = "";
 
             field = _quoter.QuoteIdentifier(field);
 
-            if (value == null)
+            if (this._value == null)
             {
                 comperator = "IS";
                 if (comperator == "IS NOT" || comperator == "<>" || comperator == "!=")
                 {
                     comperator = "IS NOT";
                 }
+            }
 
-                value = "NULL";
-            }
-            else if (value is RawExpression)
+            if (this._value is Array)
             {
-                value = value.ToString();
+                value = "(" + _quoter.Quote(this._value) + ")";
             }
-            else if (value is SubQuery)
+            else if (this._value is RawExpression)
             {
-                value = value.ToString();
+                value = this._value.ToString();
+            }
+            else if (this._value is SubQuery)
+            {
+                value = this._value.ToString();
             }
             else
             {
-                value = _quoter.Quote(value);
+                value = _quoter.Quote(this._value);
             }
 
             return String.Format("{0} {1} {2}", field, comperator, value);

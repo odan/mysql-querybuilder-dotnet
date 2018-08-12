@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Google.Protobuf.WellKnownTypes;
 
 namespace MySqlQueryBuilder
 {
@@ -20,8 +21,6 @@ namespace MySqlQueryBuilder
             {
                 return "NULL";
             }
-
-            ;
 
             result = Regex.Replace(result, @"[\x00\b\n\r\t\cZ]", delegate(Match match)
             {
@@ -48,9 +47,33 @@ namespace MySqlQueryBuilder
             return "'" + result + "'";
         }
 
+        public string QuoteArray(object[] values)
+        {
+            string result = "";
+            string seperator = "";
+
+            foreach (object value in values)
+            {
+                result += seperator + this.Quote(value);
+                seperator = ", ";
+            }
+
+            return result;
+        }
+
         public string Quote(bool value)
         {
             return this.Quote(value ? "1" : "0");
+        }
+
+        public string Quote(float value)
+        {
+            return this.Quote(value.ToString().Replace(",", "."));
+        }
+
+        public string Quote(double value)
+        {
+            return this.Quote(value.ToString().Replace(",", "."));
         }
 
         public string Quote(object value)
@@ -58,6 +81,26 @@ namespace MySqlQueryBuilder
             if (value == null)
             {
                 return "NULL";
+            }
+
+            if (value is float f)
+            {
+                return this.Quote(f);
+            }
+
+            if (value is double d)
+            {
+                return this.Quote(d);
+            }
+
+            if (value is bool b)
+            {
+                return this.Quote(b);
+            }
+
+            if (value is Array)
+            {
+                return this.QuoteArray(value as object[]);
             }
 
             return this.Quote(value.ToString());

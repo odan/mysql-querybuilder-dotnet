@@ -77,15 +77,6 @@ namespace MySqlQueryBuilder
 
         public Query Where(string field, string comperator, object value)
         {
-            Type type = value.GetType();
-
-            /*
-            if (type.IsPrimitive == false ||
-               type.FullName != "MySqlQueryBuilder.SubQuery")
-            {
-                throw new InvalidCastException("Invalid data type: " + type.FullName);
-            }*/
-
             _where.Add(new WhereCondition(field, comperator, value));
 
             return this;
@@ -140,10 +131,8 @@ namespace MySqlQueryBuilder
 
             sql += ";";
 
-
             return sql;
         }
-
 
         public override string ToString()
         {
