@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using MySqlQueryBuilder;
+﻿using MySqlQueryBuilder;
 using Xunit;
 
 namespace MySqlQueryBuilderTest

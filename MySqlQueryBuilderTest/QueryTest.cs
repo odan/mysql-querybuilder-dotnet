@@ -110,7 +110,7 @@ namespace MySqlQueryBuilderTest
             Assert.Equal("SELECT `id`, `field` AS `alias`, COUNT(*) AS counter, `field2` AS `alias2` FROM `users`;",
                 sql);
         }
-        
+
         [Fact]
         public void TestSelectAndFetch()
         {
@@ -128,19 +128,19 @@ namespace MySqlQueryBuilderTest
             });
 
             string sql = query.GetSql();
-            
+
             var rows = query.Execute().FetchAll();
 
             foreach (var row in rows)
             {
                 var id = row.Get<int>("id", null);
-                var firstName  = row.Get<string>("first_name", null);
+                var firstName = row.Get<string>("first_name", null);
                 var nada = row.Get<string>("nada", null);
                 var nada2 = row.Get<string>("nada2");
                 var nada3 = row.Get<int>("nada3", 1);
                 //var dbname = row.Get<string>("dbname");
 
-                Assert.InRange(id, 1,2);
+                Assert.InRange(id, 1, 2);
                 Assert.Null(row["first_name"]);
                 Assert.Null(firstName);
                 Assert.Null(nada);
@@ -148,15 +148,15 @@ namespace MySqlQueryBuilderTest
                 Assert.Equal(1, nada3);
             }
 
-            
+
             var users = query.Execute().FetchAll<User>();
-            
+
             foreach (var user in users)
             {
                 var id = user.Id;
                 var firstName = user.FirstName;
                 var dbname = user.DbName;
-                
+
                 Assert.Null(user.FirstName);
             }
         }
@@ -196,7 +196,7 @@ namespace MySqlQueryBuilderTest
             string sql = query.GetSql();
 
             Assert.Equal("SELECT * FROM `t1` WHERE `column1` = (SELECT `column1` FROM `t2`);", sql);
-         
+
         }
     }
 }

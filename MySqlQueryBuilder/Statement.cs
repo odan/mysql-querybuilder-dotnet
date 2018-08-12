@@ -76,7 +76,7 @@ namespace MySqlQueryBuilder
             Type type = typeof(T);
 
             // New row object
-            T row = (T) Activator.CreateInstance(typeof(T));
+            T row = (T)Activator.CreateInstance(typeof(T));
 
             for (int i = 0; i < dataReader.FieldCount; i++)
             {

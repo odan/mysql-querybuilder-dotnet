@@ -7,9 +7,11 @@ namespace MySqlQueryBuilder
     {
         private readonly string _field;
 
+        private Quoter _quoter = new Quoter();
+
         public Field(string field)
         {
-            _field = FormatField(field);
+            _field = _quoter.QuoteName(field);
         }
 
         public Field(RawExpression field)
@@ -22,12 +24,12 @@ namespace MySqlQueryBuilder
             Type theType = field.GetType();
             string value = field.ToString();
 
-             if (theType.FullName != "MySqlQueryBuilder.RawExpression" &&
-                theType.FullName != "MySqlQueryBuilder.Field" &&
-                theType.FullName != "MySqlQueryBuilder.Query" &&
-                theType.FullName != "MySqlQueryBuilder.SubQuery")
+            if (theType.FullName != "MySqlQueryBuilder.RawExpression" &&
+               theType.FullName != "MySqlQueryBuilder.Field" &&
+               theType.FullName != "MySqlQueryBuilder.Query" &&
+               theType.FullName != "MySqlQueryBuilder.SubQuery")
             {
-                value = this.FormatField(value.ToString());
+                value = _quoter.QuoteName(value.ToString());
             }
 
             _field = value;
@@ -35,8 +37,7 @@ namespace MySqlQueryBuilder
 
         public Field(string field, string alias)
         {
-            _field = FormatField(field + " AS " + alias);
-            //_alias = alias;
+            _field = _quoter.QuoteName(field + " AS " + alias);
         }
 
         public string GetField()
@@ -47,41 +48,6 @@ namespace MySqlQueryBuilder
         public override string ToString()
         {
             return _field;
-        }
-
-        protected string FormatField(string field)
-        {
-            string alias = "";
-            string pattern = @"^([a-zA-Z0-9_\.]+)\sAS\s(\w+)$";
-
-            // Instantiate the regular expression object.
-            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
-
-            Match m = r.Match(field);
-
-            if (m.Success)
-            {
-                field = m.Groups[1].Value;
-                alias = m.Groups[2].Value;
-            }
-
-            String[] substrings = field.Split('.');
-            string parts = "";
-
-            string sep = "";
-            foreach (var fieldName in substrings)
-            {
-                string fieldValue = fieldName == "*" ? fieldName : "`" + fieldName + "`";
-                parts += sep + fieldValue;
-                sep = ".";
-            }
-
-            if (alias.Length > 0)
-            {
-                parts += " AS `" + alias + "`";
-            }
-
-            return parts;
         }
     }
 }

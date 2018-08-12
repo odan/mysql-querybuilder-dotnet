@@ -49,7 +49,7 @@ namespace MySqlQueryBuilder
 
         public string Quote(bool value)
         {
-            return this.Quote(value ? "1": "0");
+            return this.Quote(value ? "1" : "0");
         }
 
         public string Quote(object value)
@@ -66,7 +66,7 @@ namespace MySqlQueryBuilder
         {
             name = name.Trim();
 
-            string[] separators = { " AS ", " ", " as " };
+            string[] separators = { " AS ", " as ", " " };
 
             foreach (string seperator in separators)
             {

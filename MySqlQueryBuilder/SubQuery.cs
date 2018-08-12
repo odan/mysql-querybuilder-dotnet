@@ -5,13 +5,13 @@ using MySql.Data.MySqlClient;
 
 namespace MySqlQueryBuilder
 {
-    public class SubQuery: Query
+    public class SubQuery : Query
     {
         private Query _query;
 
         private string _alias = null;
 
-        public SubQuery(MySqlConnection connection, Query query): base(connection)
+        public SubQuery(MySqlConnection connection, Query query) : base(connection)
         {
             _query = query;
         }
@@ -34,7 +34,8 @@ namespace MySqlQueryBuilder
             {
                 // sub query
                 sql = String.Format("({0}) AS `{1}`", sql, _alias);
-            } else
+            }
+            else
             {
                 sql = String.Format("({0})", sql);
             }

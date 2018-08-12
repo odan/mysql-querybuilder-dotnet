@@ -139,8 +139,8 @@ namespace MySqlQueryBuilder
             }
 
             sql += ";";
-            
-           
+
+
             return sql;
         }
 

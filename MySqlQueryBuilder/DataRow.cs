@@ -4,23 +4,23 @@ using Google.Protobuf.WellKnownTypes;
 
 namespace MySqlQueryBuilder
 {
-    public class DataRow: Hashtable
+    public class DataRow : Hashtable
     {
         public object Get(string field)
         {
             return this[field];
         }
-        
+
         public object Get(string field, object defaultValue)
         {
             return this.ContainsKey(field) ? this[field] : defaultValue;
         }
-        
+
         public T Get<T>(string field)
         {
             return this.Get<T>(field, null);
         }
-        
+
         public T Get<T>(string field, object defaultValue)
         {
             var value = defaultValue;
@@ -29,8 +29,8 @@ namespace MySqlQueryBuilder
             {
                 value = this[field] == null ? defaultValue : this[field];
             }
-            
-            return (T) Convert.ChangeType(value, typeof(T));
+
+            return (T)Convert.ChangeType(value, typeof(T));
         }
     }
 }

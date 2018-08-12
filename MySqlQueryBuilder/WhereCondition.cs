@@ -7,8 +7,12 @@ namespace MySqlQueryBuilder
     class WhereCondition
     {
         private string _field;
+
         private string _comperator;
+
         private object _value;
+
+        private Quoter _quoter = new Quoter();
 
         public WhereCondition(string field, string comperator, object value)
         {
@@ -33,7 +37,7 @@ namespace MySqlQueryBuilder
             string comperator = this._comperator;
             object value = this._value;
 
-            field = "`" + field + "`";
+            field = _quoter.QuoteIdentifier(field);
 
             if (value == null)
             {
@@ -43,16 +47,18 @@ namespace MySqlQueryBuilder
                     comperator = "IS NOT";
                 }
                 value = "NULL";
-            } else if(value is RawExpression) {
+            }
+            else if (value is RawExpression)
+            {
                 value = value.ToString();
             }
             else if (value is SubQuery)
             {
                 value = value.ToString();
-            } else
+            }
+            else
             {
-                // @todo escape
-                value = "'" + value + "'";
+                value = _quoter.Quote(value);
             }
 
             return String.Format("{0} {1} {2}", field, comperator, value);
