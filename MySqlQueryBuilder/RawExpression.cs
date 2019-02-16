@@ -2,7 +2,7 @@
 {
     public class RawExpression
     {
-        private string _raw;
+        private readonly string _raw;
 
         public RawExpression(string raw)
         {

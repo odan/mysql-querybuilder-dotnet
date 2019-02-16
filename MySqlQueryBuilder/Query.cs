@@ -7,7 +7,7 @@ namespace MySqlQueryBuilder
 {
     public class Query
     {
-        protected MySqlConnection Connection;
+        private readonly MySqlConnection _connection;
 
         private string _table;
 
@@ -17,7 +17,7 @@ namespace MySqlQueryBuilder
 
         public Query(MySqlConnection connection)
         {
-            Connection = connection;
+            _connection = connection;
             _table = "";
         }
 
@@ -58,7 +58,7 @@ namespace MySqlQueryBuilder
             return this;
         }
 
-        public Query Select(List<object> fields)
+        public Query Select(IEnumerable<object> fields)
         {
             foreach (var field in fields)
             {
@@ -94,7 +94,7 @@ namespace MySqlQueryBuilder
 
         public SubQuery ToSubQuery()
         {
-            return new SubQuery(Connection, this);
+            return new SubQuery(_connection, this);
         }
 
         public QueryFunc Func()
@@ -104,7 +104,7 @@ namespace MySqlQueryBuilder
 
         public Statement Execute()
         {
-            Statement statement = new Statement(Connection);
+            var statement = new Statement(_connection);
             statement.Execute(this.GetSql());
 
             return statement;
@@ -112,17 +112,17 @@ namespace MySqlQueryBuilder
 
         public string GetSql()
         {
-            string sql = "SELECT ";
-            string seperator = "";
+            var sql = "SELECT ";
+            var seperator = "";
             foreach (var field in _fields)
             {
                 sql += seperator + field;
                 seperator = ", ";
             }
 
-            sql += String.Format(" FROM {0}", _table);
+            sql += string.Format(" FROM {0}", _table);
 
-            string andSeperator = " WHERE ";
+            var andSeperator = " WHERE ";
             foreach (WhereCondition where in _where)
             {
                 sql += andSeperator + where.ToString();

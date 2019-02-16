@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 using System.Text.RegularExpressions;
-using Google.Protobuf.WellKnownTypes;
 
 namespace MySqlQueryBuilder
 {
@@ -15,7 +13,7 @@ namespace MySqlQueryBuilder
                 return "NULL";
             }
 
-            string result = MySql.Data.MySqlClient.MySqlHelper.EscapeString(value);
+            var result = MySql.Data.MySqlClient.MySqlHelper.EscapeString(value);
 
             if (result == null)
             {
@@ -24,7 +22,7 @@ namespace MySqlQueryBuilder
 
             result = Regex.Replace(result, @"[\x00\b\n\r\t\cZ]", delegate(Match match)
             {
-                string v = match.Value;
+                var v = match.Value;
                 switch (v)
                 {
                     case "\x00": // ASCII NUL (0x00) character
@@ -52,7 +50,7 @@ namespace MySqlQueryBuilder
             string result = "";
             string seperator = "";
 
-            foreach (object value in values)
+            foreach (var value in values)
             {
                 result += seperator + this.Quote(value);
                 seperator = ", ";
@@ -68,39 +66,28 @@ namespace MySqlQueryBuilder
 
         public string Quote(float value)
         {
-            return this.Quote(value.ToString().Replace(",", "."));
+            return this.Quote(value.ToString(CultureInfo.InvariantCulture).Replace(",", "."));
         }
 
         public string Quote(double value)
         {
-            return this.Quote(value.ToString().Replace(",", "."));
+            return this.Quote(value.ToString(CultureInfo.InvariantCulture).Replace(",", "."));
         }
 
         public string Quote(object value)
         {
-            if (value == null)
+            switch (value)
             {
-                return "NULL";
-            }
-
-            if (value is float f)
-            {
-                return this.Quote(f);
-            }
-
-            if (value is double d)
-            {
-                return this.Quote(d);
-            }
-
-            if (value is bool b)
-            {
-                return this.Quote(b);
-            }
-
-            if (value is Array)
-            {
-                return this.QuoteArray(value as object[]);
+                case null:
+                    return "NULL";
+                case float f:
+                    return this.Quote(f);
+                case double d:
+                    return this.Quote(d);
+                case bool b:
+                    return this.Quote(b);
+                case Array _:
+                    return this.QuoteArray(value as object[]);
             }
 
             return this.Quote(value.ToString());
@@ -114,7 +101,7 @@ namespace MySqlQueryBuilder
 
             foreach (string seperator in separators)
             {
-                int position = name.IndexOf(seperator);
+                int position = name.IndexOf(seperator, StringComparison.Ordinal);
 
                 if (position >= 0)
                 {
@@ -125,23 +112,23 @@ namespace MySqlQueryBuilder
             return this.QuoteIdentifier(name);
         }
 
-        protected string QuoteNameWithSeparator(string name, string seperator, int position)
+        public string QuoteNameWithSeparator(string name, string seperator, int position)
         {
-            string part1 = this.QuoteName(name.Substring(0, position));
-            string part2 = this.QuoteIdentifier(name.Substring(position + seperator.Length));
+            var part1 = this.QuoteName(name.Substring(0, position));
+            var part2 = this.QuoteIdentifier(name.Substring(position + seperator.Length));
 
-            return String.Format("{0} AS {1}", part1, part2);
+            return string.Format("{0} AS {1}", part1, part2);
         }
 
         public string QuoteIdentifier(string name)
         {
             name = name.Trim();
 
-            string[] parts = name.Split(".");
-            string seperator = "";
-            string result = "";
+            var parts = name.Split(".");
+            var seperator = "";
+            var result = "";
 
-            foreach (string part in parts)
+            foreach (var part in parts)
             {
                 if (part == "*")
                 {

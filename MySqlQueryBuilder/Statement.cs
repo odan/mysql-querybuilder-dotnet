@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
@@ -37,7 +38,6 @@ namespace MySqlQueryBuilder
             return row;
         }
 
-
         public List<DataRow> FetchAll()
         {
             List<DataRow> rows = new List<DataRow>();
@@ -73,17 +73,17 @@ namespace MySqlQueryBuilder
             return rows;
         }
 
-        private T DataReaderToObject<T>(MySqlDataReader dataReader)
+        private T DataReaderToObject<T>(IDataRecord dataReader)
         {
-            Type type = typeof(T);
+            var type = typeof(T);
 
             // New row object
-            T row = (T) Activator.CreateInstance(typeof(T));
+            var row = (T) Activator.CreateInstance(typeof(T));
 
-            for (int i = 0; i < dataReader.FieldCount; i++)
+            for (var i = 0; i < dataReader.FieldCount; i++)
             {
-                string name = ToPascalCase(dataReader.GetName(i));
-                PropertyInfo prop = type.GetProperty(name);
+                var name = ToPascalCase(dataReader.GetName(i));
+                var prop = type.GetProperty(name);
                 if (prop == null)
                 {
                     throw new Exception("Class property not defined: " + name);
@@ -105,13 +105,13 @@ namespace MySqlQueryBuilder
             return row;
         }
 
-        private DataRow DataReaderToDataRow(MySqlDataReader reader)
+        private DataRow DataReaderToDataRow(IDataRecord reader)
         {
-            DataRow row = new DataRow();
+            var row = new DataRow();
 
-            for (int i = 0; i < reader.FieldCount; i++)
+            for (var i = 0; i < reader.FieldCount; i++)
             {
-                string name = reader.GetName(i);
+                var name = reader.GetName(i);
                 var value = reader[i];
 
                 if (value is DBNull)
@@ -127,14 +127,14 @@ namespace MySqlQueryBuilder
         }
 
         // Convert the string to Pascal case.
-        public string ToPascalCase(string value)
+        private string ToPascalCase(string value)
         {
             value = value.Replace("_", " ").Replace("-", " ").Trim();
 
-            TextInfo info = Thread.CurrentThread.CurrentCulture.TextInfo;
+            var info = Thread.CurrentThread.CurrentCulture.TextInfo;
             value = info.ToTitleCase(value);
-            string[] parts = value.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
-            string result = String.Join(String.Empty, parts);
+            var parts = value.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+            var result = string.Join(string.Empty, parts);
 
             return result;
         }

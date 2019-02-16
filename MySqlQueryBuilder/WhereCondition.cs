@@ -6,13 +6,13 @@ namespace MySqlQueryBuilder
 {
     class WhereCondition
     {
-        private string _field;
+        private readonly string _field;
 
-        private string _comperator;
+        private readonly string _comperator;
 
-        private object _value;
+        private readonly object _value;
 
-        private Quoter _quoter = new Quoter();
+        private readonly Quoter _quoter = new Quoter();
 
         public WhereCondition(string field, string comperator, object value)
         {
@@ -26,20 +26,20 @@ namespace MySqlQueryBuilder
                 throw new ArgumentException("message", nameof(comperator));
             }
 
-            this._field = field;
-            this._comperator = comperator.ToUpper();
-            this._value = value;
+            _field = field;
+            _comperator = comperator.ToUpper();
+            _value = value;
         }
 
         public override string ToString()
         {
-            string field = this._field;
-            string comperator = this._comperator;
-            string value = "";
+            var field = _field;
+            var comperator = _comperator;
+            var value = "";
 
             field = _quoter.QuoteIdentifier(field);
 
-            if (this._value == null)
+            if (_value == null)
             {
                 comperator = "IS";
                 if (comperator == "IS NOT" || comperator == "<>" || comperator == "!=")
@@ -48,21 +48,21 @@ namespace MySqlQueryBuilder
                 }
             }
 
-            if (this._value is Array)
+            if (_value is Array)
             {
-                value = "(" + _quoter.Quote(this._value) + ")";
+                value = "(" + _quoter.Quote(_value) + ")";
             }
-            else if (this._value is RawExpression)
+            else if (_value is RawExpression)
             {
-                value = this._value.ToString();
+                value = _value.ToString();
             }
-            else if (this._value is SubQuery)
+            else if (_value is SubQuery)
             {
-                value = this._value.ToString();
+                value = _value.ToString();
             }
             else
             {
-                value = _quoter.Quote(this._value);
+                value = _quoter.Quote(_value);
             }
 
             return String.Format("{0} {1} {2}", field, comperator, value);
